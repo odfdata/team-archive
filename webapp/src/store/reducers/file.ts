@@ -1,7 +1,7 @@
 import {BaseReducer} from "./index";
 import {createSlice} from "@reduxjs/toolkit";
 import {clearError} from "../actions/basicActions";
-import {setFielOrder} from "../actions/fileActions";
+import {setFileOrder} from "../actions/fileActions";
 
 /** -- DEFINITIONS */
 
@@ -31,7 +31,7 @@ export const fileReducerSlice = createSlice({
   initialState,
   reducers: {
     clearError,
-    setFielOrder
+    setFielOrder: setFileOrder
   }
 })
 
