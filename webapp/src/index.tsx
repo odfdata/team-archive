@@ -34,20 +34,20 @@ const client = createClient({
 const container = document.getElementById('root');
 const root = createRoot(container!);
 root.render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <Provider store={store}>
       <WagmiConfig client={client}>
-        <ConnectKitProvider>
+        {/*<ConnectKitProvider theme="auto">*/}
           <StyledEngineProvider injectFirst>
             <ThemeProvider theme={theme}>
               <CssBaseline />
               <App />
             </ThemeProvider>
           </StyledEngineProvider>
-        </ConnectKitProvider>
+        {/*</ConnectKitProvider>*/}
       </WagmiConfig>
     </Provider>
-  // </React.StrictMode>
+  </React.StrictMode>
 );
 
 
