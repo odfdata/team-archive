@@ -10,7 +10,7 @@ import {FileReducer} from "../reducers/file";
  * @param {Draft<FileReducer>} state
  * @param {PayloadAction<boolean>} action
  */
-export const setFielOrder: CaseReducer<FileReducer, PayloadAction<boolean>> =
+export const setFileOrder: CaseReducer<FileReducer, PayloadAction<boolean>> =
   (state, action) => {
     state.fileOrderAsc = action.payload;
 }

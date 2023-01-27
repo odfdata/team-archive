@@ -3,9 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.137.0",
-    "@aws-sdk/lib-storage": "^3.137.0",
-    "@aws-sdk/xhr-http-handler": "^3.131.0",
+    "@lighthouse-web3/sdk": "^0.1.12",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@ethersproject/bignumber": "^5.7.0",
@@ -46,8 +44,7 @@
     "wagmi": "^0.10.15",
     "web-vitals": "^2.1.4",
     "web3": "^1.7.4",
-    "web3modal": "^1.9.8",
-    "web3.storage": "^4.4.0"
+    "web3modal": "^1.9.8"
   },
   "scripts": {
     "start": "env-cmd -f .env.dev craco start",
