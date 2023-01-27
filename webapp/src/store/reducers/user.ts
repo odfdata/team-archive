@@ -40,4 +40,4 @@ export const userReducerActions = {
   setUserSignature: userReducerSlice.actions.setUserSignature,
 };
 
-// export default userReducerActions.reducer;
+export default userReducerSlice.reducer;
