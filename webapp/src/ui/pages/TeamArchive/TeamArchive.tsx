@@ -5,6 +5,8 @@ import {useNetwork} from "wagmi";
 import {Box, Tab, Tabs} from "@mui/material";
 import {Folder, Phone} from "@mui/icons-material";
 import CommonBasePageStructure from "../../organisms/Common.BasePageStructure/Common.BasePageStructure";
+import {useAppDispatch} from "../../../hooks/redux/reduxHooks";
+import {fileReducerActions} from "../../../store/reducers/file";
 
 /**
  *
@@ -15,6 +17,7 @@ import CommonBasePageStructure from "../../organisms/Common.BasePageStructure/Co
 const TeamArchive: React.FC<ITeamHomepage> = (props) => {
   const { teamAddress } = useParams();
   const network = useNetwork();
+  const dispatch = useAppDispatch();
 
   const teamFiles = useGetTeamFiles({
     amount: 100,
@@ -25,7 +28,7 @@ const TeamArchive: React.FC<ITeamHomepage> = (props) => {
 
   useEffect(() => {
     if (teamFiles.completed && teamFiles.error === "" && teamFiles.result ) {
-      console.log("File list downloaded");
+      dispatch(fileReducerActions.setFileList(teamFiles.result.teamFiles));
     }
   }, [teamFiles.completed])
 

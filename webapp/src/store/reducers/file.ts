@@ -1,7 +1,8 @@
 import {BaseReducer} from "./index";
 import {createSlice} from "@reduxjs/toolkit";
 import {clearError} from "../actions/basicActions";
-import {setFileOrder} from "../actions/fileActions";
+import {setFileList, setFileOrder} from "../actions/fileActions";
+import {TeamFile} from "../../hooks/contracts/teamArchive/useGetTeamFiles";
 
 /** -- DEFINITIONS */
 
@@ -12,13 +13,15 @@ import {setFileOrder} from "../actions/fileActions";
  *
  */
 export interface FileReducer extends BaseReducer {
-  fileOrderAsc: boolean
+  fileOrderAsc: boolean,
+  fileList: TeamFile[]
 }
 
 /** -- INITIAL STATE */
 
 const initialState: FileReducer = {
-  fileOrderAsc: true
+  fileOrderAsc: true,
+  fileList: []
 };
 
 /** --- CREATE THE REDUCER */
@@ -28,13 +31,15 @@ export const fileReducerSlice = createSlice({
   initialState,
   reducers: {
     clearError,
-    setFileOrder: setFileOrder
+    setFileOrder: setFileOrder,
+    setFileList: setFileList
   }
 });
 
 export const fileReducerActions = {
   clearError: fileReducerSlice.actions.clearError,
-  setFileOrder: fileReducerSlice.actions.setFileOrder
+  setFileOrder: fileReducerSlice.actions.setFileOrder,
+  setFileList: fileReducerSlice.actions.setFileList
 };
 
 export default fileReducerSlice.reducer;
