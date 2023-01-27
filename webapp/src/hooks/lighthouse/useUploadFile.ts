@@ -49,13 +49,14 @@ export const useUploadFile = (params: UploadFileParams): useBaseAsyncHookState<U
       const fileCID = await lighthouse.uploadEncrypted(
         params.file.webkitRelativePath,
         params.publicKey,
-        process.env.LIGHTHOUSE_API_KEY,
+        process.env.REACT_APP_LIGHTHOUSE_API_KEY,
         params.signedMessage,
         progressCallback
       );
+      console.log("process.env.LIGHTHOUSE_API_KEY", process.env.REACT_APP_LIGHTHOUSE_API_KEY);
       const metadataCID = await lighthouse.textUploadEncrypted(
         JSON.stringify({CID: fileCID.data.Hash, name: fileCID.data.Name, size: fileCID.data.Size}),
-        process.env.LIGHTHOUSE_API_KEY,
+        process.env.REACT_APP_LIGHTHOUSE_API_KEY,
         params.publicKey,
         params.signedMessage
       );
