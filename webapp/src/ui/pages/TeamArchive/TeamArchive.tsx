@@ -20,13 +20,12 @@ const TeamArchive: React.FC<ITeamHomepage> = (props) => {
     amount: 100,
     chainId: network.chain.id,
     teamAddress: teamAddress,
-    reverse: true,
-    startId: 123456
+    reverse: true
   });
 
   useEffect(() => {
     if (teamFiles.completed && teamFiles.error === "" && teamFiles.result ) {
-      alert("File list downloaded");
+      console.log("File list downloaded");
     }
   }, [teamFiles.completed])
 

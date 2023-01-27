@@ -3,7 +3,7 @@ import {useBaseAsyncHook, useBaseAsyncHookState} from "../../utils/useBaseAsyncH
 import {CONTRACTS_DETAILS} from "../../../utils/constants";
 import {useGetFirstDocumentElement} from "./useGetFirstDocumentElement";
 import {useGetLastDocumentElement} from "./useGetLastDocumentElement";
-import {useEffect} from "react";
+import {useEffect, useMemo} from "react";
 
 export interface GetTeamFilesParams {
   chainId: number;
@@ -43,18 +43,24 @@ export const useGetTeamFiles = (params: GetTeamFilesParams): useBaseAsyncHookSta
   const {completed, error, loading, result, progress,
     startAsyncAction, endAsyncActionSuccess, endAsyncActionError} = useBaseAsyncHook<GetTeamFilesResponse>();
 
-  let startId = 0;
-  useEffect(() => {
-    if (params.reverse === false) startId = useGetFirstDocumentElement({chainId: params.chainId, teamAddress: params.teamAddress}).result;
-    else startId = useGetLastDocumentElement({chainId: params.chainId, teamAddress: params.teamAddress}).result;
-  }, [params.reverse]);
+  const firstElementResult = useGetFirstDocumentElement({chainId: params.chainId, teamAddress: params.teamAddress});
+  const lastElementResult = useGetLastDocumentElement({chainId: params.chainId, teamAddress: params.teamAddress});
+
+  let startId = useMemo(() => {
+    if (firstElementResult.completed && lastElementResult.completed) {
+      if (params.reverse === false) return firstElementResult.result;
+      else return lastElementResult.result;
+    }
+    return -1;
+  }, [params.reverse, firstElementResult.completed, lastElementResult.completed]);
 
   const contractRead = useContractRead({
     address: CONTRACTS_DETAILS[params.chainId]?.TEAM_ARCHIVE_ADDRESS,
     abi: CONTRACTS_DETAILS[params.chainId]?.TEAM_ARCHIVE_ABI,
     functionName: "getTeamFiles",
     args: [params.teamAddress, startId, params.amount, params.reverse],
-    onError: ((e) => endAsyncActionError(e.message))
+    onError: ((e) => endAsyncActionError(e.message)),
+    enabled: startId>=0
   });
   return {
     completed: contractRead.isSuccess,
