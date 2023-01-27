@@ -2,6 +2,9 @@ import React, {useEffect} from 'react';
 import { useParams } from 'react-router';
 import {useGetTeamFiles} from "../../../hooks/contracts/teamArchive/useGetTeamFiles";
 import {useNetwork} from "wagmi";
+import {Box, Tab, Tabs} from "@mui/material";
+import {Folder, Phone} from "@mui/icons-material";
+import CommonBasePageStructure from "../../organisms/Common.BasePageStructure/Common.BasePageStructure";
 
 /**
  *
@@ -9,7 +12,7 @@ import {useNetwork} from "wagmi";
  * @return {JSX.Element}
  * @constructor
  */
-const TeamHomepage: React.FC<ITeamHomepage> = (props) => {
+const TeamArchive: React.FC<ITeamHomepage> = (props) => {
   const { teamAddress } = useParams();
   const network = useNetwork();
 
@@ -27,10 +30,12 @@ const TeamHomepage: React.FC<ITeamHomepage> = (props) => {
     }
   }, [teamFiles.completed])
 
+  // evaluate the current tab
+
   return (
-    <div>
-      Team homepage for {teamAddress}
-    </div>
+    <CommonBasePageStructure>
+      team page {teamAddress}
+    </CommonBasePageStructure>
   );
 };
 
@@ -38,4 +43,4 @@ export interface ITeamHomepage {
 
 }
 
-export default TeamHomepage;
+export default TeamArchive;

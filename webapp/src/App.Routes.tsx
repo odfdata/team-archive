@@ -1,10 +1,11 @@
 import React from "react";
 import Home from "./ui/pages/Home/Home";
-import TeamHomepage from "./ui/pages/TeamHomepage/TeamHomepage";
+import TeamArchive from "./ui/pages/TeamArchive/TeamArchive";
 
 export enum RouteKey {
   Home = "/",
-  TeamHomepage = "/team/:teamAddress",
+  TeamArchive = "/team/:teamAddress/archive",
+  TeamMeeting = "/team/:teamAddress/meeting",
 }
 // list of all the routes of the App
 export const routes = [ {
@@ -13,8 +14,13 @@ export const routes = [ {
   path: RouteKey.Home,
   component: <Home/>,
 }, {
-  key: RouteKey.TeamHomepage,
+  key: RouteKey.TeamArchive,
   protected: false,
-  path: RouteKey.TeamHomepage,
-  component: <TeamHomepage/>,
+  path: RouteKey.TeamArchive,
+  component: <TeamArchive/>,
+}, {
+  key: RouteKey.TeamMeeting,
+  protected: false,
+  path: RouteKey.TeamMeeting,
+  component: <TeamArchive/>,
 }]

@@ -28,7 +28,7 @@ const HomeTeamTokenSearchBar: React.FC<IHomeTeamTokenSearchBar> = (props) => {
   useEffect(() => {
     let regex = /^0x[a-fA-F0-9]{40}$/;
     if (regex.test(teamAddressDebounced)) {
-      navigate(`/team/${teamAddress}`);
+      navigate(`/team/${teamAddress}/archive`);
     }
   }, [teamAddressDebounced])
 
