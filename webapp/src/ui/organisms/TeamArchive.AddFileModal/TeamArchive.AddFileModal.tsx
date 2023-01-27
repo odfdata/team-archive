@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
+import {Box, Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux/reduxHooks";
 import {fileReducerActions} from "../../../store/reducers/file";
 import UploadStepper from "./UploadStepper";

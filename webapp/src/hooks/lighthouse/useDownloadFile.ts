@@ -1,8 +1,6 @@
 import lighthouse from "@lighthouse-web3/sdk";
-import {useAccount, useSignMessage} from "wagmi";
 import {useEffect} from "react";
 import {useBaseAsyncHook, useBaseAsyncHookState} from "../utils/useBaseAsyncHook";
-import {UploadFileResponse} from "./useUploadFile";
 
 export interface DownloadFileParams {
   CID: string;

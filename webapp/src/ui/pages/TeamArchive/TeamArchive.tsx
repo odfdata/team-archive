@@ -1,12 +1,10 @@
 import React, {useEffect} from 'react';
-import { useParams } from 'react-router';
+import {useParams} from 'react-router';
 import {useGetTeamFiles} from "../../../hooks/contracts/teamArchive/useGetTeamFiles";
 import {useAccount, useNetwork} from "wagmi";
-import {Box, Tab, Tabs} from "@mui/material";
-import {Folder, Phone} from "@mui/icons-material";
+import {Box} from "@mui/material";
 import CommonBasePageStructure from "../../organisms/Common.BasePageStructure/Common.BasePageStructure";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux/reduxHooks";
-import {fileReducerActions} from "../../../store/reducers/file";
 import TeamArchiveSearchAndAddButton
   from "../../organisms/TeamArchive.SearchAndAddButton/TeamArchive.SearchAndAddButton";
 

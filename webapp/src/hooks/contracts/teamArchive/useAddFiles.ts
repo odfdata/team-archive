@@ -1,5 +1,4 @@
-import {useContractRead, useContractWrite, useNetwork, usePrepareContractWrite, useWaitForTransaction} from "wagmi";
-import {useBaseAsyncHook, useBaseAsyncHookState} from "../../utils/useBaseAsyncHook";
+import {useContractWrite, useNetwork, usePrepareContractWrite, useWaitForTransaction} from "wagmi";
 import {
   useBaseSmartContractWrite,
   useBaseSmartContractWriteExternalReturn

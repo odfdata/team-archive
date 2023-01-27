@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Box, Button, InputAdornment, TextField} from "@mui/material";
-import {Add, Groups, Search} from "@mui/icons-material";
+import {Add, Search} from "@mui/icons-material";
 import TeamArchiveAddFileModal from "../TeamArchive.AddFileModal/TeamArchive.AddFileModal";
 import {useAppDispatch} from "../../../hooks/redux/reduxHooks";
 import {fileReducerActions} from "../../../store/reducers/file";

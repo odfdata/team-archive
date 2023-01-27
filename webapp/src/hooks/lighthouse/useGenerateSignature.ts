@@ -1,7 +1,6 @@
 import {useBaseAsyncHook, useBaseAsyncHookState} from "../utils/useBaseAsyncHook";
-import {UploadFileResponse} from "./useUploadFile";
 import {useEffect} from "react";
-import {useAccount, useProvider, useSigner, useSignMessage} from "wagmi";
+import {useAccount, useSigner} from "wagmi";
 import lighthouse from "@lighthouse-web3/sdk";
 
 

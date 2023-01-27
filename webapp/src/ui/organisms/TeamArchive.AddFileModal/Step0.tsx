@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import {FileUploader} from "react-drag-drop-files";
-import {InsertDriveFile} from "@mui/icons-material";
+import {InsertDriveFile, Upload} from "@mui/icons-material";
 import {Box, Button, Typography} from "@mui/material";
 import {theme} from "../../../GlobalStyles";
 import Step0_UploadFile from "./Step0_UploadFile";
@@ -25,15 +24,13 @@ const Step0: React.FC<IStep0> = (props) => {
     <Box paddingY={2}>
       {
         file === undefined ?
-          <Box display={"flex"} justifyContent={"center"}>
-            <Button variant="contained" component="label">
+          <Box display={"flex"} alignItems={"center"} flexDirection={"column"}>
+            <Button variant="contained" component="label" startIcon={<Upload/>}>
               Upload
               <input hidden type="file" onChange={e => setFile(e)} />
             </Button>
+            <Typography variant={"body1"} sx={{mt: 1}}>Select the file to upload</Typography>
           </Box>
-          // <FileUploader
-          //   handleChange={(f) => setFile(f)}
-          //   label={"Drop your file here, or click to select"}/>
           :
           !uploadInProgress ?
             <Box display={"flex"} alignItems={"center"} flexDirection={"column"}>

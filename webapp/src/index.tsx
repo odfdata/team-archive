@@ -10,7 +10,6 @@ import {theme} from "./GlobalStyles";
 import {configureChains, createClient, WagmiConfig} from "wagmi";
 import {polygonMumbai} from "wagmi/chains";
 import {ConnectKitProvider, getDefaultClient} from "connectkit";
-import {MetaMaskConnector} from "wagmi/connectors/metaMask";
 import {publicProvider} from 'wagmi/providers/public';
 import {hyperspace} from "./utils/fevmChainConfiguration";
 

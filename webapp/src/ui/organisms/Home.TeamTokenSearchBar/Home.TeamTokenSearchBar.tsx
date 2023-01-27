@@ -1,12 +1,7 @@
-import {Box, Button, FormControl, Input, InputAdornment, InputLabel, TextField} from '@mui/material';
+import {Box, Button, InputAdornment, TextField} from '@mui/material';
 import React, {useEffect, useState} from 'react';
 import {Groups} from "@mui/icons-material";
-import {theme} from "../../../GlobalStyles";
 import {useIsMobile} from "../../../hooks/ui/mobileTabletUI";
-import {useGetTeamFiles} from "../../../hooks/contracts/teamArchive/useGetTeamFiles";
-import {useAccount, useConnect, useNetwork, useProvider} from "wagmi";
-import {useGenerateSignature} from "../../../hooks/lighthouse/useGenerateSignature";
-import {useAppSelector} from "../../../hooks/redux/reduxHooks";
 import {useNavigate} from "react-router";
 import {useDebounce} from "use-debounce";
 
