@@ -24,7 +24,7 @@ const Step0UploadFile: React.FC<IStep0UploadFile> = (props) => {
     file: props.file,
     publicKey: account.address,
     signedMessage: signedMessage,
-    teamAdddress: teamAddress
+    teamAddress: teamAddress
   });
 
   useEffect(() => {

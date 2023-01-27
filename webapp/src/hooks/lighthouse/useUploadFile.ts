@@ -8,7 +8,7 @@ import lighthouse from '@lighthouse-web3/sdk';
 export interface UploadFileParams {
   publicKey: string;
   signedMessage: string;
-  teamAdddress: string;
+  teamAddress: string;
   file: File;
 }
 
@@ -53,7 +53,6 @@ export const useUploadFile = (params: UploadFileParams): useBaseAsyncHookState<U
         params.signedMessage,
         progressCallback
       );
-      console.log("process.env.LIGHTHOUSE_API_KEY", process.env.REACT_APP_LIGHTHOUSE_API_KEY);
       const metadataCID = await lighthouse.textUploadEncrypted(
         JSON.stringify({CID: fileCID.data.Hash, name: fileCID.data.Name, size: fileCID.data.Size}),
         process.env.REACT_APP_LIGHTHOUSE_API_KEY,
@@ -65,7 +64,7 @@ export const useUploadFile = (params: UploadFileParams): useBaseAsyncHookState<U
         params.publicKey,
         fileCID.data.Hash,
         params.signedMessage,
-        createCondition(params.teamAdddress),
+        createCondition(params.teamAddress),
         "([1])"
       );
       console.log(response);
