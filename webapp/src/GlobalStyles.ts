@@ -49,7 +49,7 @@ export const theme = createTheme({
       fontFamily: "Roboto"
     },
     subtitle1: {
-      fontSize: 16,
+      fontSize: 24,
       fontFamily: "Roboto"
     }
   },

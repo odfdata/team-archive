@@ -1,13 +1,16 @@
 import {combineReducers} from "redux";
 import {ErrorsEnum} from "../../utils/ProjectTypes/Errors.enum";
 import {FileReducer, fileReducerSlice} from "./file";
+import {UserReducer, userReducerSlice} from "./user";
 
 interface RootReducer {
-  cid: FileReducer,
+  file: FileReducer,
+  user: UserReducer,
 }
 
 const rootReducer = combineReducers<RootReducer>({
-  cid: fileReducerSlice.reducer,
+  file: fileReducerSlice.reducer,
+  user: userReducerSlice.reducer
 });
 
 export default rootReducer;
