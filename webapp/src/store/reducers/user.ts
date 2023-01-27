@@ -18,6 +18,7 @@ export interface UserReducer extends BaseReducer {
 /** -- INITIAL STATE */
 
 const initialState: UserReducer = {
+  dispatchError: undefined,
   userSignature: '',
 };
 
@@ -30,9 +31,6 @@ export const userReducerSlice = createSlice({
     clearError,
     emptyUserSignature,
     setUserSignature,
-  },
-  extraReducers: builder => {
-
   },
 });
 
