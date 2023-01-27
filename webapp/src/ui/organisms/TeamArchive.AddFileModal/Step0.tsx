@@ -15,7 +15,7 @@ import {fileReducerActions} from "../../../store/reducers/file";
  */
 const Step0: React.FC<IStep0> = (props) => {
 
-  const [file, setFile] = useState<File | undefined>(undefined);
+  const [file, setFile] = useState< React.ChangeEvent<HTMLInputElement> | undefined>(undefined);
 
   const uploadInProgress = useAppSelector(state => state.file.fileUploading_fileUploadInProgress);
   const dispatch = useAppDispatch();
@@ -25,16 +25,22 @@ const Step0: React.FC<IStep0> = (props) => {
     <Box paddingY={2}>
       {
         file === undefined ?
-          <FileUploader
-            handleChange={(f) => setFile(f)}
-            label={"Drop your file here, or click to select"}/>
+          <Box display={"flex"} justifyContent={"center"}>
+            <Button variant="contained" component="label">
+              Upload
+              <input hidden type="file" onChange={e => setFile(e)} />
+            </Button>
+          </Box>
+          // <FileUploader
+          //   handleChange={(f) => setFile(f)}
+          //   label={"Drop your file here, or click to select"}/>
           :
           !uploadInProgress ?
             <Box display={"flex"} alignItems={"center"} flexDirection={"column"}>
               <Box display={"flex"} alignItems={"center"} flexDirection={"column"}>
                 <InsertDriveFile sx={{color: theme.palette.text.secondary, fontSize: 40}}/>
                 <Typography variant="body2" sx={{mt: 1}}>
-                  {file?.name}
+                  {file?.target.files[0].name}
                 </Typography>
               </Box>
               <Box display={"flex"} sx={{mt: 3}}>

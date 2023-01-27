@@ -1,5 +1,5 @@
 import {useBaseAsyncHook, useBaseAsyncHookState} from "../utils/useBaseAsyncHook";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import lighthouse from '@lighthouse-web3/sdk';
 
 /**
@@ -9,7 +9,7 @@ export interface UploadFileParams {
   publicKey: string;
   signedMessage: string;
   teamAddress: string;
-  file: File;
+  file: React.ChangeEvent<HTMLInputElement>;
 }
 
 /**
@@ -47,7 +47,8 @@ export const useUploadFile = (params: UploadFileParams): useBaseAsyncHookState<U
     new Promise(async (resolve, reject) => {
       // upload encrypted files to lighthouse
       const fileCID = await lighthouse.uploadEncrypted(
-        params.file.webkitRelativePath,
+        // @ts-ignore
+        params.file,
         params.publicKey,
         process.env.REACT_APP_LIGHTHOUSE_API_KEY,
         params.signedMessage,

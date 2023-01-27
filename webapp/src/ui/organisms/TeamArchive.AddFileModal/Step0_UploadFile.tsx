@@ -46,7 +46,7 @@ const Step0UploadFile: React.FC<IStep0UploadFile> = (props) => {
 };
 
 export interface IStep0UploadFile {
-  file: File;
+  file: React.ChangeEvent<HTMLInputElement>;
   changeStep: (number) => void;
 }
 
