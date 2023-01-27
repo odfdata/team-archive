@@ -15,14 +15,11 @@ export interface FileReducer extends BaseReducer {
   fileOrderAsc: boolean
 }
 
-
 /** -- INITIAL STATE */
 
 const initialState: FileReducer = {
   fileOrderAsc: true
 };
-
-
 
 /** --- CREATE THE REDUCER */
 
@@ -31,13 +28,13 @@ export const fileReducerSlice = createSlice({
   initialState,
   reducers: {
     clearError,
-    setFielOrder: setFileOrder
+    setFileOrder: setFileOrder
   }
-})
+});
 
 export const fileReducerActions = {
   clearError: fileReducerSlice.actions.clearError,
-  setFileOrder: fileReducerSlice.actions.setFielOrder
-}
+  setFileOrder: fileReducerSlice.actions.setFileOrder
+};
 
-export default fileReducerSlice.reducer
+export default fileReducerSlice.reducer;

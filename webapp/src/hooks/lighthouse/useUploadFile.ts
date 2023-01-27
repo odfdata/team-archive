@@ -38,9 +38,18 @@ export const useUploadFile = (params: UploadFileParams): useBaseAsyncHookState<U
       process.env.LIGHTHOUSE_API_KEY,
       params.signedMessage,
       progressCallback
-    ).then(data => { endAsyncActionSuccess({
-      CID: data.data.Hash,
-    })});
+    ).then(data => {
+      lighthouse.textUploadEncrypted(
+        JSON.stringify({CID: data.data.Hash, name: data.data.Name, size: data.data.Size}),
+        process.env.LIGHTHOUSE_API_KEY,
+        params.publicKey,
+        params.signedMessage
+      ).then(data => {
+        endAsyncActionSuccess({
+          CID: data.data.Hash
+        });
+      });
+    });
   }, [params.file]);
 
   const uploadPercentage = (percentage: number): void => {
