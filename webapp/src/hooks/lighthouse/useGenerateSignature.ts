@@ -4,19 +4,16 @@ import {useEffect} from "react";
 import {useAccount, useProvider, useSigner, useSignMessage} from "wagmi";
 import lighthouse from "@lighthouse-web3/sdk";
 
-export interface GenerateSignatureParams {
-
-}
 
 export interface GenerateSignatureResponse {
-
+  signedMessage: string;
+  publicKey: string;
 }
 
 /**
  * Hook used to generate signature for lighthouse
  */
-export const useGenerateSignature = (
-  params: GenerateSignatureParams): useBaseAsyncHookState<GenerateSignatureResponse> => {
+export const useGenerateSignature = (): useBaseAsyncHookState<GenerateSignatureResponse> => {
   // TODO: understand how to implement this part using "wagmi"
   const { completed, error, loading, result, progress,
     startAsyncAction, endAsyncActionSuccess, endAsyncActionError } = useBaseAsyncHook<GenerateSignatureResponse>();
