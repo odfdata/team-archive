@@ -4,6 +4,7 @@ import {useUploadFile} from "../../../hooks/lighthouse/useUploadFile";
 import {useAccount} from "wagmi";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux/reduxHooks";
 import {fileReducerActions} from "../../../store/reducers/file";
+import {useParams} from "react-router";
 
 /**
  *
@@ -16,12 +17,14 @@ const Step0UploadFile: React.FC<IStep0UploadFile> = (props) => {
   const signedMessage = useAppSelector(state => state.user.userSignature);
   const account = useAccount();
   const dispatch = useAppDispatch();
+  const { teamAddress } = useParams();
 
 
   const status = useUploadFile({
     file: props.file,
     publicKey: account.address,
-    signedMessage: signedMessage
+    signedMessage: signedMessage,
+    teamAdddress: teamAddress
   });
 
   useEffect(() => {
