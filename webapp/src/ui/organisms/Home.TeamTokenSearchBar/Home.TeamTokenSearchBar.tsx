@@ -19,27 +19,18 @@ import {useDebounce} from "use-debounce";
 const HomeTeamTokenSearchBar: React.FC<IHomeTeamTokenSearchBar> = (props) => {
 
   const [teamAddress, setTeamAddress] = useState<string>("");
-  const signature = useAppSelector(state => state.user.userSignature);
 
   const [teamAddressDebounced] = useDebounce(teamAddress, 500);
 
   const isMobile = useIsMobile();
-  const network = useNetwork();
   const navigate = useNavigate();
 
-  const teamFiles = useGetTeamFiles({
-    amount: 100,
-    chainId: network.chain.id,
-    teamAddress: teamAddressDebounced,
-    reverse: true,
-    startId: 123456
-  });
-
   useEffect(() => {
-    if (teamFiles.completed && teamFiles.error === "" && teamFiles.result ) {
+    let regex = /^0x[a-fA-F0-9]{40}$/;
+    if (regex.test(teamAddressDebounced)) {
       navigate(`/team/${teamAddress}`);
     }
-  }, [teamFiles.completed])
+  }, [teamAddressDebounced])
 
   return (
     <Box width={isMobile ? "100%" : 500} display={"flex"} flexDirection={"row"} alignItems={"center"}>
