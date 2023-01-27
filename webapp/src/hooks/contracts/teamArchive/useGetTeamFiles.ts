@@ -32,12 +32,16 @@ export interface TeamFile {
   addDate: number;
 }
 
+export interface GetTeamFilesResponse {
+  teamFiles: TeamFile[];
+  refetch: any;
+}
 /**
  * Hook used to get files associated with the teamAddress parameter.
  */
-export const useGetTeamFiles = (params: GetTeamFilesParams): useBaseAsyncHookState<TeamFile[]> => {
+export const useGetTeamFiles = (params: GetTeamFilesParams): useBaseAsyncHookState<GetTeamFilesResponse> => {
   const {completed, error, loading, result, progress,
-    startAsyncAction, endAsyncActionSuccess, endAsyncActionError} = useBaseAsyncHook<string[]>();
+    startAsyncAction, endAsyncActionSuccess, endAsyncActionError} = useBaseAsyncHook<GetTeamFilesResponse>();
 
   let startId = 0;
   useEffect(() => {
@@ -52,6 +56,14 @@ export const useGetTeamFiles = (params: GetTeamFilesParams): useBaseAsyncHookSta
     args: [params.teamAddress, startId, params.amount, params.reverse],
     onError: ((e) => endAsyncActionError(e.message))
   });
-
-  return { completed: contractRead.isSuccess, error, loading: contractRead.isFetching, progress, result: contractRead.data as TeamFile[] };
+  return {
+    completed: contractRead.isSuccess,
+    error,
+    loading: contractRead.isFetching,
+    progress,
+    result: {
+      teamFiles: contractRead.data as TeamFile[],
+      refetch: contractRead.refetch
+    }
+  };
 }
