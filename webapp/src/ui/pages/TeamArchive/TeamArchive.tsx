@@ -7,6 +7,8 @@ import {Folder, Phone} from "@mui/icons-material";
 import CommonBasePageStructure from "../../organisms/Common.BasePageStructure/Common.BasePageStructure";
 import {useAppDispatch} from "../../../hooks/redux/reduxHooks";
 import {fileReducerActions} from "../../../store/reducers/file";
+import TeamArchiveSearchAndAddButton
+  from "../../organisms/TeamArchive.SearchAndAddButton/TeamArchive.SearchAndAddButton";
 
 /**
  *
@@ -28,7 +30,8 @@ const TeamArchive: React.FC<ITeamHomepage> = (props) => {
 
   useEffect(() => {
     if (teamFiles.completed && teamFiles.error === "" && teamFiles.result ) {
-      dispatch(fileReducerActions.setFileList(teamFiles.result.teamFiles));
+      console.log(teamFiles.result);
+      // dispatch(fileReducerActions.setFileList(teamFiles.result.teamFiles));
     }
   }, [teamFiles.completed])
 
@@ -36,7 +39,13 @@ const TeamArchive: React.FC<ITeamHomepage> = (props) => {
 
   return (
     <CommonBasePageStructure>
-      team page {teamAddress}
+
+      <Box mt={4}>
+        <TeamArchiveSearchAndAddButton/>
+      </Box>
+
+
+
     </CommonBasePageStructure>
   );
 };

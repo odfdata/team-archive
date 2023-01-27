@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box} from "@mui/material";
+import {Box, Container} from "@mui/material";
 import CommonHeaderTabs from "../Common.HeaderTabs/Common.HeaderTabs";
 
 /**
@@ -11,12 +11,14 @@ import CommonHeaderTabs from "../Common.HeaderTabs/Common.HeaderTabs";
 const CommonBasePageStructure: React.FC<ICommonBasePageStructure> = (props) => {
   return (
     <Box width={"100vw"} px={2} py={2}>
-      <CommonHeaderTabs/>
-      <Box width={"100%"} mt={2}>
-      </Box>
-      {
-        props.children
-      }
+      <Container>
+        <CommonHeaderTabs/>
+        <Box width={"100%"} mt={2} display={"flex"} flexDirection={"column"}>
+          {
+            props.children
+          }
+        </Box>
+      </Container>
     </Box>
   );
 };
