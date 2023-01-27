@@ -26,6 +26,7 @@ export const useGenerateSignature = (
 
   useEffect(() => {
     if (account.isConnected === false) return;
+    alert("ca");
     startAsyncAction();
     new Promise (async (resolve, reject) => {
       const messageRequested = (await lighthouse.getAuthMessage(account.address)).data.message;

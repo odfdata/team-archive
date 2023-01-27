@@ -3,6 +3,9 @@ import React from 'react';
 import {Groups} from "@mui/icons-material";
 import {theme} from "../../../GlobalStyles";
 import {useIsMobile} from "../../../hooks/ui/mobileTabletUI";
+import {useGetTeamFiles} from "../../../hooks/contracts/teamArchive/useGetTeamFiles";
+import {useAccount, useConnect, useNetwork, useProvider} from "wagmi";
+import {useGenerateSignature} from "../../../hooks/lighthouse/useGenerateSignature";
 
 /**
  *
@@ -12,6 +15,9 @@ import {useIsMobile} from "../../../hooks/ui/mobileTabletUI";
  */
 const HomeTeamTokenSearchBar: React.FC<IHomeTeamTokenSearchBar> = (props) => {
   const isMobile = useIsMobile();
+  const network = useNetwork();
+
+  const data = useGenerateSignature({});
 
   return (
     <Box width={isMobile ? "100%" : 500} display={"flex"} flexDirection={"row"} alignItems={"center"}>
