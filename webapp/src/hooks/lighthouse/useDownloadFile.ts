@@ -22,7 +22,7 @@ export const useDownloadFile = (params): useBaseAsyncHookState<DownloadFileRespo
     startAsyncAction();
     new Promise (async (resolve, reject) => {
       const keyObject = await lighthouse.fetchEncryptionKey(params.CID, params.publicKey, params.signedMessage);
-      const decrypted = await lighthouse.decryptFile(params, keyObject.data.key);
+      const decrypted = await lighthouse.decryptFile(params.CID, keyObject.data.key);
       endAsyncActionSuccess({
         decrypted: decrypted,
       });

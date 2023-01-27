@@ -26,6 +26,7 @@ const TeamArchive: React.FC<ITeamHomepage> = (props) => {
   useEffect(() => {
     if (teamFiles.completed && teamFiles.error === "" && teamFiles.result ) {
       console.log("File list downloaded");
+      teamFiles.result.teamFiles.forEach(teamFile => { console.log(teamFile)});
     }
   }, [teamFiles.completed])
 
