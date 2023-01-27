@@ -8,6 +8,7 @@ import lighthouse from '@lighthouse-web3/sdk';
 export interface UploadFileParams {
   publicKey: string;
   signedMessage: string;
+  teamAdddress: string;
   file: File;
 }
 
@@ -16,6 +17,18 @@ export interface UploadFileParams {
  */
 export interface UploadFileResponse {
   CID: string;
+}
+
+const createCondition = (teamAddress: string) => {
+  return {
+    id: 1,
+    chain: "mumbai",
+    method: "balanceOf",
+    standardContractType: "ERC721",
+    contractAddress: teamAddress,
+    returnValueTest: { comparator: ">=", value: "1" },
+    parameters: [":userAddress"],
+  };
 }
 
 /**
@@ -31,25 +44,34 @@ export const useUploadFile = (params: UploadFileParams): useBaseAsyncHookState<U
       const percentageDone = 100 - parseInt((progressData.total / progressData.uploaded).toFixed(2));
       uploadPercentage(percentageDone);
     };
-    // upload encrypted files to lighthouse
-    lighthouse.uploadEncrypted(
-      params.file.webkitRelativePath,
-      params.publicKey,
-      process.env.LIGHTHOUSE_API_KEY,
-      params.signedMessage,
-      progressCallback
-    ).then(data => {
-      lighthouse.textUploadEncrypted(
-        JSON.stringify({CID: data.data.Hash, name: data.data.Name, size: data.data.Size}),
+    new Promise(async (resolve, reject) => {
+      // upload encrypted files to lighthouse
+      const fileCID = await lighthouse.uploadEncrypted(
+        params.file.webkitRelativePath,
+        params.publicKey,
+        process.env.LIGHTHOUSE_API_KEY,
+        params.signedMessage,
+        progressCallback
+      );
+      const metadataCID = await lighthouse.textUploadEncrypted(
+        JSON.stringify({CID: fileCID.data.Hash, name: fileCID.data.Name, size: fileCID.data.Size}),
         process.env.LIGHTHOUSE_API_KEY,
         params.publicKey,
         params.signedMessage
-      ).then(data => {
-        endAsyncActionSuccess({
-          CID: data.data.Hash
-        });
+      );
+      // TODO: apply access control
+      const response = await lighthouse.accessCondition(
+        params.publicKey,
+        fileCID.data.Hash,
+        params.signedMessage,
+        createCondition(params.teamAdddress),
+        "([1])"
+      );
+      console.log(response);
+      endAsyncActionSuccess({
+        CID: metadataCID.data.Hash
       });
-    });
+    }).then(() => {});
   }, [params.file]);
 
   const uploadPercentage = (percentage: number): void => {
