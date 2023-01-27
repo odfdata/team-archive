@@ -18,6 +18,7 @@ const HomeTeamTokenSearchBar: React.FC<IHomeTeamTokenSearchBar> = (props) => {
   const network = useNetwork();
 
   const data = useGenerateSignature({});
+  console.log(data.result);
 
   return (
     <Box width={isMobile ? "100%" : 500} display={"flex"} flexDirection={"row"} alignItems={"center"}>

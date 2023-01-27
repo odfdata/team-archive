@@ -25,8 +25,7 @@ export const useGenerateSignature = (
   const signer = useSigner();
 
   useEffect(() => {
-    if (account.isConnected === false) return;
-    alert("ca");
+    if (account.isConnected === false || signer.status !== "success") return;
     startAsyncAction();
     new Promise (async (resolve, reject) => {
       const messageRequested = (await lighthouse.getAuthMessage(account.address)).data.message;
@@ -36,7 +35,7 @@ export const useGenerateSignature = (
         publicKey: account.address,
       });
     }).then(() => {});
-  }, [account.isConnected]);
+  }, [account.isConnected, signer.status]);
 
   return { completed, error, loading, result, progress };
 }
