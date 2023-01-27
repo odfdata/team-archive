@@ -37,7 +37,7 @@ export interface TeamFile {
 export const useGetTeamFiles = (params: GetTeamFilesParams): useBaseAsyncHookState<TeamFile[]> => {
   const {completed, error, loading, result, progress,
     startAsyncAction, endAsyncActionSuccess, endAsyncActionError} = useBaseAsyncHook<string[]>();
-
+  
   const contractRead = useContractRead({
     address: CONTRACTS_DETAILS[params.chainId]?.TEAM_ARCHIVE_ADDRESS,
     abi: CONTRACTS_DETAILS[params.chainId]?.TEAM_ARCHIVE_ABI,
