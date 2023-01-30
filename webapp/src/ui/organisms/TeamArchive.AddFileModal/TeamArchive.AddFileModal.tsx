@@ -27,7 +27,7 @@ const TeamArchiveAddFileModal: React.FC<ITeamArchiveAddFileModal> = (props) => {
   const goToStep = (stepChosen: 0 |1 | 2) => {
     setActiveStep(stepChosen);
   }
-
+  
   return (
     <Dialog
       open={showDialog}

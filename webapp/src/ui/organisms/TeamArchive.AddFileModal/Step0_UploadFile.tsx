@@ -19,7 +19,6 @@ const Step0UploadFile: React.FC<IStep0UploadFile> = (props) => {
   const dispatch = useAppDispatch();
   const { teamAddress } = useParams();
 
-
   const status = useUploadFile({
     file: props.file,
     publicKey: account.address,
