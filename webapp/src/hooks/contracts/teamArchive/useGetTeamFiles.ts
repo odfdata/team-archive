@@ -112,7 +112,7 @@ export const useGetTeamFiles = (params: GetTeamFilesParams): useBaseAsyncHookSta
     functionName: "getTeamFiles",
     args: [params.teamAddress, startId, params.amount, params.reverse],
     onError: ((e) => endAsyncActionError(e.message)),
-    enabled: startId>=0,
+    enabled: startId>0,
   });
 
   let teamFiles = [];
