@@ -1,6 +1,7 @@
 import {useBaseAsyncHook, useBaseAsyncHookState} from "../utils/useBaseAsyncHook";
 import React, {useEffect, useState} from "react";
 import lighthouse from '@lighthouse-web3/sdk';
+import textUploadFileEncrypted from '@lighthouse-web3/sdk/Lighthouse/uploadEncrypted/browser/textUploadEncrypted.js';
 
 /**
  * @param {File} file - The file to be uploaded using Lighthouse
@@ -58,7 +59,8 @@ export const useUploadFile = (params: UploadFileParams): useBaseAsyncHookState<U
           params.signedMessage,
           progressCallback
         );
-        const metadataCID = await lighthouse.textUploadEncrypted(
+        console.log(fileCID);
+        const metadataCID = await textUploadFileEncrypted(
           JSON.stringify({CID: fileCID.data.Hash, name: fileCID.data.Name, size: fileCID.data.Size}),
           process.env.REACT_APP_LIGHTHOUSE_API_KEY,
           params.publicKey,
