@@ -59,22 +59,19 @@ export const useUploadFile = (params: UploadFileParams): useBaseAsyncHookState<U
           params.signedMessage,
           progressCallback
         );
-        console.log(fileCID);
         const metadataCID = await textUploadFileEncrypted(
           JSON.stringify({CID: fileCID.data.Hash, name: fileCID.data.Name, size: fileCID.data.Size}),
           process.env.REACT_APP_LIGHTHOUSE_API_KEY,
           params.publicKey,
           params.signedMessage
         );
-        // TODO: apply access control
         const response = await lighthouse.accessCondition(
           params.publicKey,
           fileCID.data.Hash,
           params.signedMessage,
-          createCondition(params.teamAddress),
+          [createCondition(params.teamAddress)],
           "([1])"
         );
-        console.log(response);
         endAsyncActionSuccess({
           CID: metadataCID.data.Hash
         });
