@@ -19,7 +19,8 @@ export const useGetFirstDocumentElement = (params: GetFirstDocumentElementParams
     abi: CONTRACTS_DETAILS[params.chainId]?.TEAM_ARCHIVE_ABI,
     functionName: "firstDocumentElement",
     args: [params.teamAddress],
-    onError: ((e) => endAsyncActionError(e.message))
+    onError: ((e) => endAsyncActionError(e.message)),
+    watch: true,
   });
   return { completed: contractRead.isSuccess, error, loading: contractRead.isFetching, progress, result: contractRead.data as unknown as number };
 }

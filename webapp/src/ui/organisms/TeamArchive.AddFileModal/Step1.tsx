@@ -64,7 +64,7 @@ const Step1: React.FC<IStep1> = (props) => {
             <CircularProgress/>
             {
               txData.txHash ?
-                <Typography variant={"body1"}>
+                <Typography variant={"body1"} sx={{mt: 1}}>
                   Follow your <a target={"_blank"} href={`${CHAIN_DETAILS[network.chain.id].EXPLORER_URL}tx/${txData.txHash}`}>transaction</a>
                 </Typography>
                 :

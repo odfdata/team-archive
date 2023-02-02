@@ -12,7 +12,7 @@ export interface DownloadFileResponse {
   decrypted: File
 }
 
-export const useDownloadFile = (params): useBaseAsyncHookState<DownloadFileResponse> => {
+export const useDownloadFile = (params: DownloadFileParams): useBaseAsyncHookState<DownloadFileResponse> => {
   const { completed, error, loading, progress, result,
     startAsyncAction, endAsyncActionSuccess, updateAsyncActionProgress } = useBaseAsyncHook<DownloadFileResponse>();
 

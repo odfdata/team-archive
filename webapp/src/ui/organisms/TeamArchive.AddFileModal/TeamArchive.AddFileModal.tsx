@@ -23,8 +23,10 @@ const TeamArchiveAddFileModal: React.FC<ITeamArchiveAddFileModal> = (props) => {
 
   // handle the close for the modal. If there's a click outside of it, it doesn't close
   const handleClose = (e, reason) => {
-    if (reason !== "backdropClick")
+    if (reason !== "backdropClick") {
+      setActiveStep(0);
       dispatch(fileReducerActions.setShowFileUploadingModal(false))
+    }
   }
 
   const goToStep = (stepChosen: 0 |1 | 2) => {

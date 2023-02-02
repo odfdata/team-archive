@@ -1,7 +1,7 @@
 import {Box, Typography} from '@mui/material';
 import React from 'react';
 import {useAccount} from "wagmi";
-import ConnectWalletButton from "../../atoms/atoms/ConnectWalletButton/ConnectWalletButton";
+import ConnectWalletButton from "../../atoms/ConnectWalletButton/ConnectWalletButton";
 import HomeTeamTokenSearchBar from "../../organisms/Home.TeamTokenSearchBar/Home.TeamTokenSearchBar";
 import {useAppSelector} from "../../../hooks/redux/reduxHooks";
 import HomeSignMessageToAccessTeamFiles

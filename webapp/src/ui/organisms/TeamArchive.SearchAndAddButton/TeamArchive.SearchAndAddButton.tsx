@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Box, Button, InputAdornment, TextField} from "@mui/material";
 import {Add, Search} from "@mui/icons-material";
 import TeamArchiveAddFileModal from "../TeamArchive.AddFileModal/TeamArchive.AddFileModal";
 import {useAppDispatch} from "../../../hooks/redux/reduxHooks";
-import {fileReducerActions} from "../../../store/reducers/file";
+import file, {fileReducerActions} from "../../../store/reducers/file";
+import {useDebounce} from "use-debounce";
 
 /**
  *
@@ -14,7 +15,13 @@ import {fileReducerActions} from "../../../store/reducers/file";
 const TeamArchiveSearchAndAddButton: React.FC<ITeamArchiveSearchAndAddButton> = (props) => {
 
   const [fileNameSearch, setFileNameSearch] = useState<string>("");
+  const [fileNameSearchDebounced] = useDebounce(fileNameSearch, 500);
   const dispatch = useAppDispatch();
+
+  // set the value to filter in the parent component
+  useEffect(() => {
+    props.filter(fileNameSearchDebounced);
+  }, [fileNameSearchDebounced])
 
   return (
     <Box display={"flex"} flexDirection={"row"} alignItems={"start"} justifyContent={"space-between"}>
@@ -44,7 +51,7 @@ const TeamArchiveSearchAndAddButton: React.FC<ITeamArchiveSearchAndAddButton> = 
 };
 
 export interface ITeamArchiveSearchAndAddButton {
-
+  filter: (string) => void;  // function used to set the filter written in this search bar
 }
 
 export default TeamArchiveSearchAndAddButton;

@@ -3,7 +3,7 @@ import {useBaseAsyncHook, useBaseAsyncHookState} from "../../utils/useBaseAsyncH
 import {CONTRACTS_DETAILS} from "../../../utils/constants";
 import {useGetFirstDocumentElement} from "./useGetFirstDocumentElement";
 import {useGetLastDocumentElement} from "./useGetLastDocumentElement";
-import {useEffect, useMemo} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {BigNumber} from "@ethersproject/bignumber";
 import lighthouse from "@lighthouse-web3/sdk";
 
@@ -13,13 +13,11 @@ export interface GetTeamFilesParams {
    * The team address for which you want to retrieve the files
    */
   teamAddress: string;
-
   amount: number;
-
   reverse: boolean;
-
   jwt: string;
   publicKey: string;
+  enabled: boolean;  // true if we want to enable the call, false otherwise
 }
 
 export interface TeamFile {
@@ -73,19 +71,20 @@ const getCIDsFromCIDsMetadata = async (params: GetCIDsFromCIDsMetadataParams): P
   });
   const files = await Promise.all(promises);
   const result: TeamFile[] = [];
-  params.teamFiles.forEach((teamFile, index) => {
-    const file = files[index];
-    const fileContent = JSON.parse(file);
+  for (let i=0; i<params.teamFiles.length; i++) {
+    const teamFile = params.teamFiles[i];
+    const file = files[i];
+    const fileContent = JSON.parse(await file.text());
     result.push({
       CIDMetadata: teamFile.CIDMetadata,
       CIDFile: fileContent.CID,
       addedAt: teamFile.addedAt,
       uploaderAddress: teamFile.uploaderAddress,
       name: fileContent.name,
-      size: fileContent.size
+      size: parseInt(fileContent.size)
     });
-  });
-  return [];
+  }
+  return result;
 }
 
 /**
@@ -94,6 +93,7 @@ const getCIDsFromCIDsMetadata = async (params: GetCIDsFromCIDsMetadataParams): P
 export const useGetTeamFiles = (params: GetTeamFilesParams): useBaseAsyncHookState<GetTeamFilesResponse> => {
   const {completed, error, loading, result, progress,
     startAsyncAction, endAsyncActionSuccess, endAsyncActionError} = useBaseAsyncHook<GetTeamFilesResponse>();
+  const [teamFiles, setTeamFiles] = useState<TeamFile[]>([]);
 
   const firstElementResult = useGetFirstDocumentElement({chainId: params.chainId, teamAddress: params.teamAddress});
   const lastElementResult = useGetLastDocumentElement({chainId: params.chainId, teamAddress: params.teamAddress});
@@ -104,7 +104,7 @@ export const useGetTeamFiles = (params: GetTeamFilesParams): useBaseAsyncHookSta
       else return lastElementResult.result;
     }
     return -1;
-  }, [params.reverse, firstElementResult.completed, lastElementResult.completed]);
+  }, [params.reverse, firstElementResult.completed, lastElementResult.completed, lastElementResult.result, firstElementResult.result]);
 
   const contractRead = useContractRead({
     address: CONTRACTS_DETAILS[params.chainId]?.TEAM_ARCHIVE_ADDRESS,
@@ -112,14 +112,14 @@ export const useGetTeamFiles = (params: GetTeamFilesParams): useBaseAsyncHookSta
     functionName: "getTeamFiles",
     args: [params.teamAddress, startId, params.amount, params.reverse],
     onError: ((e) => endAsyncActionError(e.message)),
-    enabled: startId>0,
+    enabled: startId>0 && params.enabled,
+    watch: true
   });
 
-  let teamFiles = [];
   useEffect(() => {
     if (contractRead.isSuccess && contractRead.data) {
       new Promise (async (resolve, reject) => {
-        teamFiles = await getCIDsFromCIDsMetadata({
+        const teamFiles = await getCIDsFromCIDsMetadata({
           teamFiles: contractRead.data.map((teamFile: {CID_metadata: string, addedAt: BigNumber, uploaderAddress: string}) => {
             return {
               CIDMetadata: teamFile.CID_metadata,
@@ -130,6 +130,7 @@ export const useGetTeamFiles = (params: GetTeamFilesParams): useBaseAsyncHookSta
           jwt: params.jwt,
           publicKey: params.publicKey,
         });
+        setTeamFiles(teamFiles);
       }).then(()=> {});
     }
   }, [contractRead.isSuccess]);

@@ -31,7 +31,6 @@ export const useAddFiles = (params: AddFilesParams): useBaseSmartContractWriteEx
   const network = useNetwork();
   // generate ids for each metadata
   const ids = useMemo(() => generateIDs(params.metadataCIDs), []);
-  console.log(ids);
   const prepareContractWrite = usePrepareContractWrite({
     address: CONTRACTS_DETAILS[network.chain?.id]?.TEAM_ARCHIVE_ADDRESS,
     abi: CONTRACTS_DETAILS[network.chain?.id]?.TEAM_ARCHIVE_ABI,
@@ -54,8 +53,8 @@ export const useAddFiles = (params: AddFilesParams): useBaseSmartContractWriteEx
   }, [waitForTx.status]);
 
   const write = (() => {
+    if (!contractWrite.writeAsync) return;
     startAsyncAction();
-    console.log(contractWrite);
     contractWrite.writeAsync()
       .then(() => {
       })
