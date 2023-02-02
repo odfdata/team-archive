@@ -3,7 +3,7 @@ import {useParams} from 'react-router';
 import {useGetTeamFiles} from "../../../hooks/contracts/teamArchive/useGetTeamFiles";
 import {useAccount, useNetwork} from "wagmi";
 import {Box} from "@mui/material";
-import CommonBasePageStructure from "../../organisms/Common.BasePageStructure/Common.BasePageStructure";
+import CommonInternalBasePageStructure from "../../organisms/Common.InternalBasePageStructure/Common.InternalBasePageStructure";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux/reduxHooks";
 import TeamArchiveSearchAndAddButton
   from "../../organisms/TeamArchive.SearchAndAddButton/TeamArchive.SearchAndAddButton";
@@ -41,7 +41,7 @@ const TeamArchive: React.FC<ITeamHomepage> = (props) => {
   // evaluate the current tab
 
   return (
-    <CommonBasePageStructure>
+    <CommonInternalBasePageStructure>
 
       <Box mt={4}>
         <TeamArchiveSearchAndAddButton/>
@@ -49,7 +49,7 @@ const TeamArchive: React.FC<ITeamHomepage> = (props) => {
 
 
 
-    </CommonBasePageStructure>
+    </CommonInternalBasePageStructure>
   );
 };
 
