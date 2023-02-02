@@ -65,9 +65,16 @@ export const useUploadFile = (params: UploadFileParams): useBaseAsyncHookState<U
           params.publicKey,
           params.jwt
         );
-        const response = await lighthouse.accessCondition(
+        await lighthouse.accessCondition(
           params.publicKey,
           fileCID.data.Hash,
+          params.jwt,
+          [createCondition(params.teamAddress)],
+          "([1])"
+        );
+        await lighthouse.accessCondition(
+          params.publicKey,
+          metadataCID.data.Hash,
           params.jwt,
           [createCondition(params.teamAddress)],
           "([1])"
