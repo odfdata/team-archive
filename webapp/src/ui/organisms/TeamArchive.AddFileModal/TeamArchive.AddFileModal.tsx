@@ -5,6 +5,7 @@ import {fileReducerActions} from "../../../store/reducers/file";
 import UploadStepper from "./UploadStepper";
 import Step0 from "./Step0";
 import Step1 from "./Step1";
+import Step2 from "./Step2";
 
 /**
  *
@@ -17,6 +18,7 @@ const TeamArchiveAddFileModal: React.FC<ITeamArchiveAddFileModal> = (props) => {
   const [activeStep, setActiveStep] = useState<number>(0);
 
   const showDialog = useAppSelector(state => state.file.showFileUploadingModal);
+  const fileUploading_fileUploadInProgress = useAppSelector(state => state.file.fileUploading_fileUploadInProgress);
   const dispatch = useAppDispatch();
 
   // handle the close for the modal. If there's a click outside of it, it doesn't close
@@ -43,14 +45,17 @@ const TeamArchiveAddFileModal: React.FC<ITeamArchiveAddFileModal> = (props) => {
         <Box mt={2}>
           { activeStep === 0 ? <Step0 changeStep={goToStep} /> : ""}
           { activeStep === 1 ? <Step1 changeStep={goToStep} /> : ""}
+          { activeStep === 2 ? <Step2/> : ""}
         </Box>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={() => {}}>Disagree</Button>
-        <Button onClick={() => {}} autoFocus>
-          Agree
-        </Button>
-      </DialogActions>
+      {
+        (activeStep === 0 && !fileUploading_fileUploadInProgress) || activeStep === 2 ?
+          <DialogActions>
+            <Button onClick={() => handleClose(1,1)}>Close</Button>
+          </DialogActions>
+          :
+          ""
+      }
     </Dialog>
   );
 };
