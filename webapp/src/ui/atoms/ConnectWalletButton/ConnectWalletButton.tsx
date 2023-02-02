@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Button} from "@mui/material";
+import {Button} from "@mui/material";
 import Web3ModalWrapper from "../Web3ModalWrapper/Web3ModalWrapper";
 
 /**

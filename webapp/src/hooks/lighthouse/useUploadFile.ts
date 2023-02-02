@@ -1,14 +1,16 @@
 import {useBaseAsyncHook, useBaseAsyncHookState} from "../utils/useBaseAsyncHook";
-import {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import lighthouse from '@lighthouse-web3/sdk';
+import textUploadFileEncrypted from '@lighthouse-web3/sdk/Lighthouse/uploadEncrypted/browser/textUploadEncrypted.js';
 
 /**
  * @param {File} file - The file to be uploaded using Lighthouse
  */
 export interface UploadFileParams {
   publicKey: string;
-  signedMessage: string;
-  file: File;
+  jwt: string;
+  teamAddress: string;
+  file: React.ChangeEvent<HTMLInputElement>;
 }
 
 /**
@@ -18,6 +20,20 @@ export interface UploadFileResponse {
   CID: string;
 }
 
+const createCondition = (teamAddress: string) => {
+  return {
+    id: 1,
+    chain: "mumbai",
+    method: "balanceOf",
+    standardContractType: "ERC721",
+    contractAddress: teamAddress,
+    returnValueTest: { comparator: ">=", value: "1" },
+    parameters: [":userAddress"],
+  };
+}
+
+let uploadLaunched = false;
+
 /**
  * Hook used to upload encrypted files using lighthouse
  */
@@ -26,31 +42,50 @@ export const useUploadFile = (params: UploadFileParams): useBaseAsyncHookState<U
     startAsyncAction, endAsyncActionSuccess, updateAsyncActionProgress } = useBaseAsyncHook<UploadFileResponse>();
 
   useEffect(() => {
-    startAsyncAction();
-    const progressCallback = (progressData) => {
-      const percentageDone = 100 - parseInt((progressData.total / progressData.uploaded).toFixed(2));
-      uploadPercentage(percentageDone);
-    };
-    // upload encrypted files to lighthouse
-    lighthouse.uploadEncrypted(
-      params.file.webkitRelativePath,
-      params.publicKey,
-      process.env.LIGHTHOUSE_API_KEY,
-      params.signedMessage,
-      progressCallback
-    ).then(data => {
-      lighthouse.textUploadEncrypted(
-        JSON.stringify({CID: data.data.Hash, name: data.data.Name, size: data.data.Size}),
-        process.env.LIGHTHOUSE_API_KEY,
-        params.publicKey,
-        params.signedMessage
-      ).then(data => {
+    if (params.file && !uploadLaunched) {
+      uploadLaunched = true;
+      startAsyncAction();
+      const progressCallback = (progressData) => {
+        const percentageDone = 100 - parseInt((progressData.total / progressData.uploaded).toFixed(2));
+        uploadPercentage(percentageDone);
+      };
+      new Promise(async (resolve, reject) => {
+        // upload encrypted files to lighthouse
+        const fileCID = await lighthouse.uploadEncrypted(
+          // @ts-ignore
+          params.file,
+          params.publicKey,
+          process.env.REACT_APP_LIGHTHOUSE_API_KEY,
+          params.jwt,
+          progressCallback
+        );
+        const metadataCID = await textUploadFileEncrypted(
+          JSON.stringify({CID: fileCID.data.Hash, name: fileCID.data.Name, size: fileCID.data.Size}),
+          process.env.REACT_APP_LIGHTHOUSE_API_KEY,
+          params.publicKey,
+          params.jwt
+        );
+        await lighthouse.accessCondition(
+          params.publicKey,
+          fileCID.data.Hash,
+          params.jwt,
+          [createCondition(params.teamAddress)],
+          "([1])"
+        );
+        await lighthouse.accessCondition(
+          params.publicKey,
+          metadataCID.data.Hash,
+          params.jwt,
+          [createCondition(params.teamAddress)],
+          "([1])"
+        );
         endAsyncActionSuccess({
-          CID: data.data.Hash
+          CID: metadataCID.data.Hash
         });
-      });
-    });
-  }, [params.file]);
+        uploadLaunched = false;
+      }).then(() => {});
+    }
+  }, []);
 
   const uploadPercentage = (percentage: number): void => {
     updateAsyncActionProgress(percentage);

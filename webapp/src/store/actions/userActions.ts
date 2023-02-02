@@ -4,21 +4,21 @@ import {UserReducer} from "../reducers/user";
 /** -- ACTIONS */
 
 /**
- * Remove the userSignature from the UserReducer
+ * Remove the userJWT from the UserReducer
  * @param {Draft<UserReducer>} state
  * @param {PayloadAction<void>} action
  */
-export const emptyUserSignature: CaseReducer<UserReducer, PayloadAction<void>> =
+export const emptyUserJWT: CaseReducer<UserReducer, PayloadAction<void>> =
   (state, action) => {
-    state.userSignature = '';
+    state.userJWT = '';
   }
 
 /**
- * Add the userSignature
+ * Add the userJWT
  * @param {Draft<UserReducer>} state
  * @param {PayloadAction<string>} action
  */
-export const setUserSignature: CaseReducer<UserReducer, PayloadAction<string>> =
+export const setUserJWT: CaseReducer<UserReducer, PayloadAction<string>> =
   (state, action) => {
-    state.userSignature = action.payload;
+    state.userJWT = action.payload;
   }

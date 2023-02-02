@@ -1,19 +1,19 @@
 import {useBaseAsyncHook, useBaseAsyncHookState} from "../utils/useBaseAsyncHook";
-import {UploadFileResponse} from "./useUploadFile";
 import {useEffect} from "react";
-import {useAccount, useProvider, useSigner, useSignMessage} from "wagmi";
+import {useAccount, useSigner} from "wagmi";
 import lighthouse from "@lighthouse-web3/sdk";
+import { getAuthMessage, AuthMessage, getJWT } from "@lighthouse-web3/kavach";
 
 
 export interface GenerateSignatureResponse {
-  signedMessage: string;
+  jwt: string;
   publicKey: string;
 }
 
 /**
- * Hook used to generate signature for lighthouse
+ * Hook used to generate JWT from signature for lighthouse
  */
-export const useGenerateSignature = (): useBaseAsyncHookState<GenerateSignatureResponse> => {
+export const useGenerateSignatureJWT = (): useBaseAsyncHookState<GenerateSignatureResponse> => {
   // TODO: understand how to implement this part using "wagmi"
   const { completed, error, loading, result, progress,
     startAsyncAction, endAsyncActionSuccess, endAsyncActionError } = useBaseAsyncHook<GenerateSignatureResponse>();
@@ -25,10 +25,11 @@ export const useGenerateSignature = (): useBaseAsyncHookState<GenerateSignatureR
     if (account.isConnected === false || signer.status !== "success") return;
     startAsyncAction();
     new Promise (async (resolve, reject) => {
-      const messageRequested = (await lighthouse.getAuthMessage(account.address)).data.message;
-      const signedMessage = await signer.data.signMessage(messageRequested);
+      const authMessage: AuthMessage = await getAuthMessage(account.address);
+      const signedMessage = await signer.data.signMessage(authMessage.message);
+      const { JWT, error } = await getJWT(account.address, signedMessage);
       endAsyncActionSuccess({
-        signedMessage: signedMessage,
+        jwt: JWT,
         publicKey: account.address,
       });
     }).then(() => {});
