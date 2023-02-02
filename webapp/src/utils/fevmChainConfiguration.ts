@@ -10,8 +10,8 @@ export const hyperspace: Chain = {
     symbol: 'tFIL',
   },
   rpcUrls: {
-    public: { http: ['https://api.hyperspace.node.glif.io/rpc/v0'] },
-    default: { http: ['https://api.hyperspace.node.glif.io/rpc/v0'] },
+    public: { http: ['https://api.hyperspace.node.glif.io/rpc/v1'] },
+    default: { http: ['https://api.hyperspace.node.glif.io/rpc/v1'] },
   },
   blockExplorers: {
     default: { name: 'SnowTrace', url: 'https://hyperspace.filfox.info/' },
