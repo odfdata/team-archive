@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {useGenerateSignature} from "../../../hooks/lighthouse/useGenerateSignature";
+import {useGenerateSignatureJWT} from "../../../hooks/lighthouse/useGenerateSignatureJWT";
 import {Box, CircularProgress, Typography} from "@mui/material";
 import {useAppDispatch} from "../../../hooks/redux/reduxHooks";
 import {userReducerActions} from "../../../store/reducers/user";
@@ -11,14 +11,14 @@ import {userReducerActions} from "../../../store/reducers/user";
  * @constructor
  */
 const HomeSignMessageToAccessTeamFiles: React.FC<IHomeSignMessageToAccessTeamFiles> = (props) => {
-  const signResult = useGenerateSignature();
+  const jwtResult = useGenerateSignatureJWT();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (signResult && signResult.result) {
-      dispatch(userReducerActions.setUserSignature(signResult.result.signedMessage));
+    if (jwtResult && jwtResult.result) {
+      dispatch(userReducerActions.setUserJWT(jwtResult.result.jwt));
     }
-  }, [signResult]);
+  }, [jwtResult]);
 
   return (
     <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>

@@ -14,7 +14,7 @@ import {useParams} from "react-router";
  */
 const Step0UploadFile: React.FC<IStep0UploadFile> = (props) => {
 
-  const signedMessage = useAppSelector(state => state.user.userSignature);
+  const userJWT = useAppSelector(state => state.user.userJWT);
   const account = useAccount();
   const dispatch = useAppDispatch();
   const { teamAddress } = useParams();
@@ -22,7 +22,7 @@ const Step0UploadFile: React.FC<IStep0UploadFile> = (props) => {
   const status = useUploadFile({
     file: props.file,
     publicKey: account.address,
-    signedMessage: signedMessage,
+    jwt: userJWT,
     teamAddress: teamAddress
   });
 

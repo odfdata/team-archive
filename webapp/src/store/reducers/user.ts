@@ -1,25 +1,25 @@
 import {BaseReducer} from "./index";
 import {createSlice} from "@reduxjs/toolkit";
 import {clearError} from "../actions/basicActions";
-import {emptyUserSignature, setUserSignature} from "../actions/userActions";
+import {emptyUserJWT, setUserJWT} from "../actions/userActions";
 
 /** -- DEFINITIONS */
 
 /**
  * Define the shape of the reducer, by specifying the type of element accepted in each reducer elements
  *
- * @param {string} userSignature - set the signature to be used with lighthouse
+ * @param {string} userJWT - set the JWT (derived from signature) to be used with lighthouse
  *
  */
 export interface UserReducer extends BaseReducer {
-  userSignature: string;
+  userJWT: string;
 }
 
 /** -- INITIAL STATE */
 
 const initialState: UserReducer = {
   dispatchError: undefined,
-  userSignature: '',
+  userJWT: '',
 };
 
 /** --- CREATE THE REDUCER */
@@ -29,15 +29,15 @@ export const userReducerSlice = createSlice({
   initialState,
   reducers: {
     clearError,
-    emptyUserSignature,
-    setUserSignature,
+    emptyUserJWT: emptyUserJWT,
+    setUserJWT: setUserJWT,
   },
 });
 
 export const userReducerActions = {
   clearError: userReducerSlice.actions.clearError,
-  emptyUserSignature: userReducerSlice.actions.emptyUserSignature,
-  setUserSignature: userReducerSlice.actions.setUserSignature,
+  emptyUserJWT: userReducerSlice.actions.emptyUserJWT,
+  setUserJWT: userReducerSlice.actions.setUserJWT,
 };
 
 export default userReducerSlice.reducer;

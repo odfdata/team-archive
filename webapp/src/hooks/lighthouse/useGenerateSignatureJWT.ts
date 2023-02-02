@@ -6,14 +6,14 @@ import { getAuthMessage, AuthMessage, getJWT } from "@lighthouse-web3/kavach";
 
 
 export interface GenerateSignatureResponse {
-  signedMessage: string;
+  jwt: string;
   publicKey: string;
 }
 
 /**
- * Hook used to generate signature for lighthouse
+ * Hook used to generate JWT from signature for lighthouse
  */
-export const useGenerateSignature = (): useBaseAsyncHookState<GenerateSignatureResponse> => {
+export const useGenerateSignatureJWT = (): useBaseAsyncHookState<GenerateSignatureResponse> => {
   // TODO: understand how to implement this part using "wagmi"
   const { completed, error, loading, result, progress,
     startAsyncAction, endAsyncActionSuccess, endAsyncActionError } = useBaseAsyncHook<GenerateSignatureResponse>();
@@ -29,7 +29,7 @@ export const useGenerateSignature = (): useBaseAsyncHookState<GenerateSignatureR
       const signedMessage = await signer.data.signMessage(authMessage.message);
       const { JWT, error } = await getJWT(account.address, signedMessage);
       endAsyncActionSuccess({
-        signedMessage: JWT,
+        jwt: JWT,
         publicKey: account.address,
       });
     }).then(() => {});

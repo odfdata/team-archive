@@ -5,7 +5,7 @@ import {useBaseAsyncHook, useBaseAsyncHookState} from "../utils/useBaseAsyncHook
 export interface DownloadFileParams {
   CID: string;
   publicKey: string;
-  signedMessage: string;
+  jwt: string;
 }
 
 export interface DownloadFileResponse {
@@ -19,7 +19,7 @@ export const useDownloadFile = (params): useBaseAsyncHookState<DownloadFileRespo
   useEffect(() => {
     startAsyncAction();
     new Promise (async (resolve, reject) => {
-      const keyObject = await lighthouse.fetchEncryptionKey(params.CID, params.publicKey, params.signedMessage);
+      const keyObject = await lighthouse.fetchEncryptionKey(params.CID, params.publicKey, params.jwt);
       const decrypted = await lighthouse.decryptFile(params.CID, keyObject.data.key);
       endAsyncActionSuccess({
         decrypted: decrypted,

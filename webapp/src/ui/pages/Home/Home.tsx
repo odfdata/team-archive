@@ -16,7 +16,7 @@ import HomeSignMessageToAccessTeamFiles
 const Home: React.FC<IHome> = (props) => {
 
   const account = useAccount();
-  const signStored = useAppSelector(state => state.user.userSignature);
+  const signStored = useAppSelector(state => state.user.userJWT);
 
   return (
     <Box width={"100%"} minHeight={"100vh"}

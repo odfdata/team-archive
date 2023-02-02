@@ -18,7 +18,7 @@ export interface GetTeamFilesParams {
 
   reverse: boolean;
 
-  signedMessage: string;
+  jwt: string;
   publicKey: string;
 }
 
@@ -50,14 +50,14 @@ export interface GetTeamFilesResponse {
 
 interface GetCIDsFromCIDsMetadataParams {
   publicKey: string;
-  signedMessage: string;
+  jwt: string;
   teamFiles: {CIDMetadata: string, addedAt: number, uploaderAddress: string}[];
 }
 
 const getCIDsFromCIDsMetadata = async (params: GetCIDsFromCIDsMetadataParams): Promise<TeamFile[]> => {
   let promises = [];
   params.teamFiles.forEach(teamFile => {
-    promises.push(lighthouse.fetchEncryptionKey(teamFile.CIDMetadata, params.publicKey, params.signedMessage));
+    promises.push(lighthouse.fetchEncryptionKey(teamFile.CIDMetadata, params.publicKey, params.jwt));
   });
   const encryptionKeys = [];
   let responses = await Promise.all(promises);
@@ -127,7 +127,7 @@ export const useGetTeamFiles = (params: GetTeamFilesParams): useBaseAsyncHookSta
               uploaderAddress: teamFile.uploaderAddress
             };
           }),
-          signedMessage: params.signedMessage,
+          jwt: params.jwt,
           publicKey: params.publicKey,
         });
       }).then(()=> {});

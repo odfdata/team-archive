@@ -19,14 +19,14 @@ const TeamArchive: React.FC<ITeamHomepage> = (props) => {
   const network = useNetwork();
   const dispatch = useAppDispatch();
   const account = useAccount();
-  const signedMessage = useAppSelector(state => state.user.userSignature);
+  const userJWT = useAppSelector(state => state.user.userJWT);
 
   const teamFiles = useGetTeamFiles({
     amount: 100,
     chainId: network.chain.id,
     teamAddress: teamAddress,
     reverse: true,
-    signedMessage: signedMessage,
+    jwt: userJWT,
     publicKey: account.address
   });
 

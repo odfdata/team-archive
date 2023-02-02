@@ -8,7 +8,7 @@ import textUploadFileEncrypted from '@lighthouse-web3/sdk/Lighthouse/uploadEncry
  */
 export interface UploadFileParams {
   publicKey: string;
-  signedMessage: string;
+  jwt: string;
   teamAddress: string;
   file: React.ChangeEvent<HTMLInputElement>;
 }
@@ -56,19 +56,19 @@ export const useUploadFile = (params: UploadFileParams): useBaseAsyncHookState<U
           params.file,
           params.publicKey,
           process.env.REACT_APP_LIGHTHOUSE_API_KEY,
-          params.signedMessage,
+          params.jwt,
           progressCallback
         );
         const metadataCID = await textUploadFileEncrypted(
           JSON.stringify({CID: fileCID.data.Hash, name: fileCID.data.Name, size: fileCID.data.Size}),
           process.env.REACT_APP_LIGHTHOUSE_API_KEY,
           params.publicKey,
-          params.signedMessage
+          params.jwt
         );
         const response = await lighthouse.accessCondition(
           params.publicKey,
           fileCID.data.Hash,
-          params.signedMessage,
+          params.jwt,
           [createCondition(params.teamAddress)],
           "([1])"
         );
