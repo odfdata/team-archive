@@ -4,6 +4,7 @@ import {useAppDispatch, useAppSelector} from "../../../hooks/redux/reduxHooks";
 import {fileReducerActions} from "../../../store/reducers/file";
 import UploadStepper from "./UploadStepper";
 import Step0 from "./Step0";
+import Step1 from "./Step1";
 
 /**
  *
@@ -27,7 +28,7 @@ const TeamArchiveAddFileModal: React.FC<ITeamArchiveAddFileModal> = (props) => {
   const goToStep = (stepChosen: 0 |1 | 2) => {
     setActiveStep(stepChosen);
   }
-  
+
   return (
     <Dialog
       open={showDialog}
@@ -41,6 +42,7 @@ const TeamArchiveAddFileModal: React.FC<ITeamArchiveAddFileModal> = (props) => {
         <UploadStepper activeStep={activeStep}/>
         <Box mt={2}>
           { activeStep === 0 ? <Step0 changeStep={goToStep} /> : ""}
+          { activeStep === 1 ? <Step1 changeStep={goToStep} /> : ""}
         </Box>
       </DialogContent>
       <DialogActions>

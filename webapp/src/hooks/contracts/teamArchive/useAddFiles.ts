@@ -4,7 +4,7 @@ import {
   useBaseSmartContractWriteExternalReturn
 } from "../../utils/useBaseSmartContractWrite";
 import {CONTRACTS_DETAILS} from "../../../utils/constants";
-import {useEffect} from "react";
+import {useEffect, useMemo} from "react";
 import {ethers} from "ethers";
 
 export interface AddFilesParams {
@@ -19,7 +19,7 @@ export interface AddFilesParams {
 const generateIDs = (metadataCIDs: string[]): number[] => {
   const IDs = [];
   metadataCIDs.forEach(metadataCID => {
-    IDs.push(ethers.BigNumber.from(ethers.utils.randomBytes(32)).toNumber());
+    IDs.push(ethers.BigNumber.from(ethers.utils.randomBytes(32)));
   });
   return IDs;
 }
@@ -28,12 +28,13 @@ export const useAddFiles = (params: AddFilesParams): useBaseSmartContractWriteEx
     completed, error, loading, result, txHash, progress, endAsyncActionError, endAsyncActionSuccess, startAsyncAction,
     startAsyncActionWithTxHash
   } = useBaseSmartContractWrite<undefined>();
-  // generate ids for each metadata
-  const ids = generateIDs(params.metadataCIDs);
   const network = useNetwork();
+  // generate ids for each metadata
+  const ids = useMemo(() => generateIDs(params.metadataCIDs), []);
+  console.log(ids);
   const prepareContractWrite = usePrepareContractWrite({
     address: CONTRACTS_DETAILS[network.chain?.id]?.TEAM_ARCHIVE_ADDRESS,
-    abi: CONTRACTS_DETAILS[network.chain?.id]?.TEAM_ARCHIVE_ADDRESS,
+    abi: CONTRACTS_DETAILS[network.chain?.id]?.TEAM_ARCHIVE_ABI,
     functionName: 'addFiles',
     args: [
       params.teamAddress,
@@ -54,6 +55,7 @@ export const useAddFiles = (params: AddFilesParams): useBaseSmartContractWriteEx
 
   const write = (() => {
     startAsyncAction();
+    console.log(contractWrite);
     contractWrite.writeAsync()
       .then(() => {
       })
