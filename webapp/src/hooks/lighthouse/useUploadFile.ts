@@ -2,6 +2,7 @@ import {useBaseAsyncHook, useBaseAsyncHookState} from "../utils/useBaseAsyncHook
 import React, {useEffect, useState} from "react";
 import lighthouse from '@lighthouse-web3/sdk';
 import textUploadFileEncrypted from '@lighthouse-web3/sdk/Lighthouse/uploadEncrypted/browser/textUploadEncrypted.js';
+import {useNetwork} from "wagmi";
 
 /**
  * @param {File} file - The file to be uploaded using Lighthouse
@@ -20,10 +21,11 @@ export interface UploadFileResponse {
   CID: string;
 }
 
-const createCondition = (teamAddress: string) => {
+const createCondition = (chainId: number, teamAddress: string) => {
+  const chainName = chainId === 80001 ? 'mumbai' : 'hyperspace';
   return {
     id: 1,
-    chain: "mumbai",
+    chain: chainName,
     method: "balanceOf",
     standardContractType: "ERC721",
     contractAddress: teamAddress,
@@ -40,6 +42,8 @@ let uploadLaunched = false;
 export const useUploadFile = (params: UploadFileParams): useBaseAsyncHookState<UploadFileResponse> => {
   const { completed, error, loading, progress, result,
     startAsyncAction, endAsyncActionSuccess, updateAsyncActionProgress } = useBaseAsyncHook<UploadFileResponse>();
+
+  const network = useNetwork();
 
   useEffect(() => {
     if (params.file && !uploadLaunched) {
@@ -69,14 +73,14 @@ export const useUploadFile = (params: UploadFileParams): useBaseAsyncHookState<U
           params.publicKey,
           fileCID.data.Hash,
           params.jwt,
-          [createCondition(params.teamAddress)],
+          [createCondition(network.chain.id, params.teamAddress)],
           "([1])"
         );
         await lighthouse.accessCondition(
           params.publicKey,
           metadataCID.data.Hash,
           params.jwt,
-          [createCondition(params.teamAddress)],
+          [createCondition(network.chain.id, params.teamAddress)],
           "([1])"
         );
         endAsyncActionSuccess({
