@@ -5,6 +5,9 @@ import TeamArchiveAddFileModal from "../TeamArchive.AddFileModal/TeamArchive.Add
 import {useAppDispatch} from "../../../hooks/redux/reduxHooks";
 import file, {fileReducerActions} from "../../../store/reducers/file";
 import {useDebounce} from "use-debounce";
+import {useIsTeamMember} from "../../../hooks/contracts/fakeTeamToken/useIsTeamMember";
+import {useAccount, useNetwork} from "wagmi";
+import {useParams} from "react-router";
 
 /**
  *
@@ -17,6 +20,15 @@ const TeamArchiveSearchAndAddButton: React.FC<ITeamArchiveSearchAndAddButton> = 
   const [fileNameSearch, setFileNameSearch] = useState<string>("");
   const [fileNameSearchDebounced] = useDebounce(fileNameSearch, 500);
   const dispatch = useAppDispatch();
+
+  const network = useNetwork();
+  const account = useAccount();
+  const { teamAddress } = useParams();
+  const isTeamMember = useIsTeamMember({
+    chainId: network.chain.id,
+    userAddress: account.address,
+    teamAddress: teamAddress
+  });
 
   // set the value to filter in the parent component
   useEffect(() => {
@@ -42,6 +54,7 @@ const TeamArchiveSearchAndAddButton: React.FC<ITeamArchiveSearchAndAddButton> = 
       <Button variant={"contained"}
               sx={{ml: 2}}
               startIcon={<Add/>}
+              disabled={!isTeamMember}
               onClick={() => dispatch(fileReducerActions.setShowFileUploadingModal(true))}>
         Add File
       </Button>

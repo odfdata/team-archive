@@ -16,10 +16,14 @@ export interface ChainDetails {
 /**
  * Details of the contracts we want to interact with on the chain
  *
+ * @param {string} TEAM_ARCHIVE_ADDRESS - sc address of a fake ERC-721 address
+ * @param {AbiItem} TEAM_ARCHIVE_ABI - ABI of the Fake ERC-721 address
  * @param {string} TEAM_ARCHIVE_ADDRESS - sc address of the Team Archive
  * @param {AbiItem} TEAM_ARCHIVE_ABI - ABI of the Team Archive
  */
 export interface ContractDetails {
+  FAKE_TEAM_TOKEN_ADDRESS: string,
+  FAKE_TEAM_TOKEN_ABI: AbiItem
   TEAM_ARCHIVE_ADDRESS: string,
   TEAM_ARCHIVE_ABI: AbiItem
 }

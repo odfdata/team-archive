@@ -15,7 +15,7 @@ import {hyperspace} from "./utils/fevmChainConfiguration";
 
 
 const { provider, chains } = configureChains(
-  [polygonMumbai, hyperspace],
+  [hyperspace, polygonMumbai],
   [
     publicProvider()
   ],
