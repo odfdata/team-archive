@@ -35,10 +35,9 @@ const HomeTeamTokenSearchBar: React.FC<IHomeTeamTokenSearchBar> = (props) => {
 
   // redirect to the team page once the token has been minted
   useEffect(( ) => {
-    if (mintFakeTeamToken.completed) {
-      setMintInProgress(false);
+    if (mintFakeTeamToken.completed && mintFakeTeamToken.error === "") {
       navigate(`/team/${CONTRACTS_DETAILS[network.chain.id].FAKE_TEAM_TOKEN_ADDRESS}/archive`)
-    }
+    } else if (mintFakeTeamToken.completed) setMintInProgress(false);
   }, [mintFakeTeamToken.result, mintFakeTeamToken.completed])
 
   const mint = () => {

@@ -36,7 +36,7 @@ export const useMintFakeTeamToken = (): useBaseSmartContractWriteExternalReturn<
   }, [waitForTx.status]);
 
   const write = (() => {
-    // if (!contractWrite.writeAsync) return;
+    if (!contractWrite.writeAsync) return;
     startAsyncAction();
     contractWrite.writeAsync()
       .then(() => {
