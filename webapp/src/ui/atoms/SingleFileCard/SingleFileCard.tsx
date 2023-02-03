@@ -33,6 +33,10 @@ const SingleFileCard: React.FC<ISingleFileCard> = (props) => {
           {prettyBytes(props.teamFile.size)}
         </Typography>
 
+        <Typography variant={"body2"} color={theme.palette.text.secondary} sx={{mt: 1}}>
+          Uploaded by {props.teamFile.uploaderAddress.substring(0, 6)}...{props.teamFile.uploaderAddress.substring(38, 42)}
+        </Typography>
+
       </CardContent>
 
       <CardActions>
