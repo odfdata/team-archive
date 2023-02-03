@@ -36,13 +36,23 @@ const HomeTeamTokenSearchBar: React.FC<IHomeTeamTokenSearchBar> = (props) => {
   // redirect to the team page once the token has been minted
   useEffect(( ) => {
     if (mintFakeTeamToken.completed && mintFakeTeamToken.error === "") {
-      navigate(`/team/${CONTRACTS_DETAILS[network.chain.id].FAKE_TEAM_TOKEN_ADDRESS}/archive`)
+      accessFakeTeam();
     } else if (mintFakeTeamToken.completed) setMintInProgress(false);
   }, [mintFakeTeamToken.result, mintFakeTeamToken.completed])
 
+  /**
+   * Mint one fake team token
+   */
   const mint = () => {
     setMintInProgress(true);
     mintFakeTeamToken.write();
+  }
+
+  /**
+   * Redirects the user to the fake team token archive page
+   */
+  const accessFakeTeam = () => {
+    navigate(`/team/${CONTRACTS_DETAILS[network.chain.id].FAKE_TEAM_TOKEN_ADDRESS}/archive`);
   }
 
   return (
@@ -70,6 +80,9 @@ const HomeTeamTokenSearchBar: React.FC<IHomeTeamTokenSearchBar> = (props) => {
       <Box mt={4} display={"flex"} alignItems={"center"} justifyContent={"center"}>
         <Button variant={"outlined"} onClick={mint} disabled={mintInProgress}>
           Get a Fake Team Token
+        </Button>
+        <Button variant={"outlined"} onClick={accessFakeTeam} disabled={mintInProgress} sx={{ml: 2}}>
+          Access FakeTeam
         </Button>
       </Box>
     </Box>
