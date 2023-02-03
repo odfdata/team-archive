@@ -2,6 +2,7 @@
 const path = require('path')
 const fs = require('fs')
 const cracoBabelLoader = require('craco-babel-loader')
+const { getLoader, loaderByName } = require("@craco/craco");
 
 // manage relative paths to packages
 const appDirectory = fs.realpathSync(process.cwd())
@@ -13,10 +14,29 @@ module.exports = {
       plugin: cracoBabelLoader,
       options: {
         includes: [
-          resolvePackage('node_modules/@lighthouse-web3'),
+          resolvePackage('node_modules/@lighthouse-web3/custom'),
         ]
       },
     },
+    {
+      plugin: {
+        overrideWebpackConfig: ({ webpackConfig, cracoConfig, pluginOptions, context: { env, paths } }) => {
+
+          const {
+            match: { loader: babelLoader },
+          } = getLoader(webpackConfig, loaderByName('babel-loader'));
+
+          babelLoader.options.sourceType = "unambiguous";
+          babelLoader.exclude = /@babel(?:\/|\\{1,2})runtime|core-js/;
+          babelLoader.include = [
+            path.resolve("src"),
+            path.resolve("node_modules/@lighthouse-web3/custom")
+          ];
+
+          return webpackConfig;
+        }
+      }
+    }
   ],
     // webpack: {
     //     configure: (webpackConfig, { env, paths }) => {

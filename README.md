@@ -50,6 +50,8 @@ it offers increased security and privacy, as well as transparency and immutabili
 Give it a try and take the first step towards a more secure and decentralized future for your company's archives.
 
 ## Possible improvements
+* enable the ability to delete files (already present in smart contract logic)
+* enable the ability to update file name / metadata
 * include a meeting platform, to allow also decentralized calls
 * integrate in the UI the multi-file loading logic, already implemented in the smart contract. 
 That logic allows for hundreds of thousands of documents stored per Archive, without loosing reading performance.
