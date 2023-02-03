@@ -1,8 +1,7 @@
 import {useBaseAsyncHook, useBaseAsyncHookState} from "../utils/useBaseAsyncHook";
 import {useEffect} from "react";
 import {useAccount, useSigner} from "wagmi";
-import lighthouse from "@lighthouse-web3/sdk";
-import { getAuthMessage, AuthMessage, getJWT } from "@lighthouse-web3/kavach";
+import {AuthMessage, getAuthMessage, getJWT} from "@lighthouse-web3/kavach";
 
 
 export interface GenerateSignatureResponse {
