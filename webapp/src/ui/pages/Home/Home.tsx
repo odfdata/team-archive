@@ -23,7 +23,7 @@ const Home: React.FC<IHome> = (props) => {
          display={"flex"} flexDirection={"column"} alignItems={"center"} pt={20}>
       <h1>Team Archive</h1>
       <Typography variant="subtitle1">
-        Decentralized web3 storage and meeting platform
+        Decentralized web3 storage platform
       </Typography>
       <Box mt={5}>
         {

@@ -3,7 +3,7 @@ import {Box, Button, InputAdornment, TextField} from "@mui/material";
 import {Add, Search} from "@mui/icons-material";
 import TeamArchiveAddFileModal from "../TeamArchive.AddFileModal/TeamArchive.AddFileModal";
 import {useAppDispatch} from "../../../hooks/redux/reduxHooks";
-import file, {fileReducerActions} from "../../../store/reducers/file";
+import {fileReducerActions} from "../../../store/reducers/file";
 import {useDebounce} from "use-debounce";
 import {useIsTeamMember} from "../../../hooks/contracts/fakeTeamToken/useIsTeamMember";
 import {useAccount, useNetwork} from "wagmi";

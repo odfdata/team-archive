@@ -1,11 +1,7 @@
 import {useContractRead} from "wagmi";
 import {useBaseAsyncHook, useBaseAsyncHookState} from "../../utils/useBaseAsyncHook";
 import {CONTRACTS_DETAILS} from "../../../utils/constants";
-import {useGetFirstDocumentElement} from "../teamArchive/useGetFirstDocumentElement";
-import {useGetLastDocumentElement} from "../teamArchive/useGetLastDocumentElement";
-import {useEffect, useMemo, useState} from "react";
 import {BigNumber} from "@ethersproject/bignumber";
-import lighthouse from "@lighthouse-web3/sdk";
 
 export interface IsTeamMemberParams {
   chainId: number;

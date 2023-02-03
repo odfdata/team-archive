@@ -2,10 +2,9 @@ import React, {useState} from 'react';
 import {TeamFile} from "../../../hooks/contracts/teamArchive/useGetTeamFiles";
 import {Card, CardActions, CardContent, IconButton, Tooltip, Typography} from "@mui/material";
 import {Download} from "@mui/icons-material";
-import { format } from 'date-fns';
+import {format} from 'date-fns';
 import {theme} from "../../../GlobalStyles";
 import prettyBytes from "pretty-bytes";
-import {useDownloadFile} from "../../../hooks/lighthouse/useDownloadFile";
 import DownloadProgress from "./DownloadProgress";
 
 /**

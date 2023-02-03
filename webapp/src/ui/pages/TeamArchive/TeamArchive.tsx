@@ -3,7 +3,8 @@ import {useParams} from 'react-router';
 import {TeamFile, useGetTeamFiles} from "../../../hooks/contracts/teamArchive/useGetTeamFiles";
 import {useAccount, useNetwork} from "wagmi";
 import {Box, CircularProgress} from "@mui/material";
-import CommonInternalBasePageStructure from "../../organisms/Common.InternalBasePageStructure/Common.InternalBasePageStructure";
+import CommonInternalBasePageStructure
+  from "../../organisms/Common.InternalBasePageStructure/Common.InternalBasePageStructure";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux/reduxHooks";
 import TeamArchiveSearchAndAddButton
   from "../../organisms/TeamArchive.SearchAndAddButton/TeamArchive.SearchAndAddButton";
