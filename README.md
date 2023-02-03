@@ -4,7 +4,7 @@
 
 # Team Archive
 
-Team Archive is a decentralized solution for hosting a company's archives on the Web3 platform.
+Team Archive is a decentralized solution for hosting a company's archives on the Web3.
 It leverages IPFS for file storage and FVM blockchain for smart contract logic to provide secure, 
 decentralized, and immutable storage for sensitive company data.
 
