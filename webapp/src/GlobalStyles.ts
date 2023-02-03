@@ -1,4 +1,5 @@
 import {createTheme} from '@mui/material/styles';
+import {blue, green} from "@mui/material/colors";
 
 export const theme = createTheme({
   typography: {
@@ -48,25 +49,13 @@ export const theme = createTheme({
       fontFamily: "Roboto"
     },
     subtitle1: {
-      fontSize: 16,
-      fontFamily: "Roboto"
-    },
-    button: {
-      fontWeight: 600,
+      fontSize: 24,
       fontFamily: "Roboto"
     }
   },
   palette: {
-    primary: {
-      main: '#00aae3',
-      light: '#63dcff',
-      dark: '#007bb1'
-    },
-    secondary: {
-      main: '#EAB463',
-      light: '#FFE692',
-      dark: '#B58435'
-    },
+    primary: green,
+    secondary: blue,
     text: {
       primary: '#343434',
       secondary: '#7B7B7B',
@@ -85,13 +74,6 @@ export const theme = createTheme({
           color: #DE545B
         }
       `
-    },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          paddingBottom: 2  // Roboto font makes it not correctly aligned
-        }
-      }
     }
   }
 });

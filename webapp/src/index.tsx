@@ -9,35 +9,33 @@ import {CssBaseline, StyledEngineProvider, ThemeProvider} from "@mui/material";
 import {theme} from "./GlobalStyles";
 import {configureChains, createClient, WagmiConfig} from "wagmi";
 import {polygonMumbai} from "wagmi/chains";
-import {ConnectKitProvider} from "connectkit";
-import {MetaMaskConnector} from "wagmi/connectors/metaMask";
+import {ConnectKitProvider, getDefaultClient} from "connectkit";
 import {publicProvider} from 'wagmi/providers/public';
 import {hyperspace} from "./utils/fevmChainConfiguration";
 
 
 const { provider, chains } = configureChains(
-  [polygonMumbai, hyperspace],
+  [hyperspace, polygonMumbai],
   [
     publicProvider()
   ],
 );
-const client = createClient({
-  autoConnect: true,
-  connectors: [
-    new MetaMaskConnector({
-      chains: chains
-    }),
-  ],
-  provider
-});
+const client = createClient(
+  getDefaultClient({
+    chains: chains,
+    provider: provider,
+    autoConnect: true,
+    appName: "teamArchive"
+  })
+);
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
 root.render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <Provider store={store}>
       <WagmiConfig client={client}>
-        <ConnectKitProvider>
+        <ConnectKitProvider theme="auto">
           <StyledEngineProvider injectFirst>
             <ThemeProvider theme={theme}>
               <CssBaseline />
@@ -47,7 +45,7 @@ root.render(
         </ConnectKitProvider>
       </WagmiConfig>
     </Provider>
-  // </React.StrictMode>
+  </React.StrictMode>
 );
 
 
