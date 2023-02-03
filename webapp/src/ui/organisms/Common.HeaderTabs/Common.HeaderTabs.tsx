@@ -35,7 +35,7 @@ const CommonHeaderTabs: React.FC<ICommonHeaderTabs> = (props) => {
     <Box width={"100%"} display={"flex"} flexDirection={"column"} alignItems={"center"}>
       <Tabs value={tabValue} onChange={() => {}} aria-label="icon tabs example">
         <Tab icon={<Folder />} aria-label="phone" label={"Team Archive"} onClick={goToArchive} />
-        <Tab icon={<Phone />} aria-label="favorite" label={"Meetings"}  onClick={goToMeeting} />
+        {/*<Tab icon={<Phone />} aria-label="favorite" label={"Meetings"}  onClick={goToMeeting} />*/}
       </Tabs>
     </Box>
   );
