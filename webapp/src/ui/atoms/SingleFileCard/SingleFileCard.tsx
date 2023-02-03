@@ -26,7 +26,7 @@ const SingleFileCard: React.FC<ISingleFileCard> = (props) => {
         </Typography>
 
         <Typography variant={"body2"} color={theme.palette.text.secondary} sx={{mt: 1}}>
-          {format(new Date(props.teamFile.addedAt), "do LLLL y @ h:m a")}
+          {format(new Date(props.teamFile.addedAt * 1000), "do LLLL y @ h:m a")}
         </Typography>
 
         <Typography variant={"body2"} color={theme.palette.text.secondary} sx={{mt: 1}}>
