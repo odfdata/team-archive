@@ -1,7 +1,7 @@
 import {useBaseAsyncHook, useBaseAsyncHookState} from "../utils/useBaseAsyncHook";
 import React, {useEffect, useState} from "react";
 import lighthouse from '@lighthouse-web3/sdk';
-import textUploadFileEncrypted from '@lighthouse-web3/sdk/Lighthouse/uploadEncrypted/browser/textUploadEncrypted.js';
+import * as textUploadFileEncrypted from '@lighthouse-web3/sdk/Lighthouse/uploadEncrypted/browser/textUploadEncrypted.js';
 import {useNetwork} from "wagmi";
 
 /**
