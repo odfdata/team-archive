@@ -1,9 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {Box, Button, CircularProgress, Typography} from "@mui/material";
-import {InsertDriveFile, Upload} from "@mui/icons-material";
-import {theme} from "../../../GlobalStyles";
-import {fileReducerActions} from "../../../store/reducers/file";
-import Step0_UploadFile from "./Step0_UploadFile";
 import {useAddFiles} from "../../../hooks/contracts/teamArchive/useAddFiles";
 import {useParams} from "react-router";
 import {useNetwork} from "wagmi";

@@ -2,9 +2,7 @@ import React, {useEffect} from 'react';
 import {Box, Container} from "@mui/material";
 import CommonHeaderTabs from "../Common.HeaderTabs/Common.HeaderTabs";
 import {useAppSelector} from "../../../hooks/redux/reduxHooks";
-import {useNavigate, useParams} from "react-router";
-import {useIsTeamMember} from "../../../hooks/contracts/fakeTeamToken/useIsTeamMember";
-import {useAccount, useNetwork} from "wagmi";
+import {useNavigate} from "react-router";
 
 /**
  *

@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
 import {Box, Tab, Tabs} from "@mui/material";
-import {Folder, Phone} from "@mui/icons-material";
+import {Folder} from "@mui/icons-material";
 import {useLocation, useNavigate, useParams} from "react-router";
 
 /**

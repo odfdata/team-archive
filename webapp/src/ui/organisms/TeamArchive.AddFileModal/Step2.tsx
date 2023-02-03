@@ -1,5 +1,5 @@
 import React from 'react';
-import {DoneAll, DoneAllTwoTone} from "@mui/icons-material";
+import {DoneAll} from "@mui/icons-material";
 import {theme} from "../../../GlobalStyles";
 import {Box, Typography} from "@mui/material";
 
