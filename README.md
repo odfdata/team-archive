@@ -43,6 +43,13 @@ the other members of the team can see it!
 You can deploy your solution. Just follow the instruction inside `contracts` folder first,
 and then inside `webapp` folder
 
+## Deployed contracts
+
+Contracts are currently official deployed on Filecoin Virtual Machine Hyperspace at the following address:
+
+* Team Archive contract - [0xc69eC0D839A07FE65BFB9A21eC041ba6433e7f5e](https://hyperspace.filfox.info/en/address/0xc69eC0D839A07FE65BFB9A21eC041ba6433e7f5e)
+* Fake Team NFT Token - [0x2b63f2748C3582EEf7134d7912895Ab65cfc6Db2](https://hyperspace.filfox.info/en/address/0x2b63f2748C3582EEf7134d7912895Ab65cfc6Db2)
+
 ## Conclusion
 Team Archive provides a secure and decentralized solution for companies to store their archives on the Web3 platform. 
 With its combination of IPFS for file storage and FVM blockchain for smart contract logic, 
